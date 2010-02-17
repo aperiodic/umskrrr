@@ -7,7 +7,7 @@ SHELL = /bin/bash
 
 # Source files
 CSRC = threads.c
-ASRC = suspend_thread.S resume_thread.S load_context.S save_context.S
+ASRC = save_pc.S load_pc.S suspend_thread.S resume_thread.S load_context.S save_context.S
 OBJECTS = $(CSRC:.c=.o) $(ASRC:.S=.o)
 	
 PROG = threads
