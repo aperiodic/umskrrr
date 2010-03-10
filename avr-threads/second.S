@@ -6,8 +6,8 @@
 	
 
 second:
-	ldi  r24, lo8(pm(first))    ; push our address onto the stack in place of
-	ldi  r25, hi8(pm(first))    ; the original return address
+	ldi  r24, lo8(pm(first))    ; push first's address onto the stack in place 
+	ldi  r25, hi8(pm(first))    ; of the original return address
 	push r24
 	push r25
 	
