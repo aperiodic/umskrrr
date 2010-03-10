@@ -7,7 +7,7 @@ SHELL = /bin/bash
 
 # Source files
 CSRC = threads.c
-ASRC = save_pc.S load_pc.S suspend_thread.S resume_thread.S load_context.S save_context.S
+ASRC = save_pc.S load_pc.S suspend_thread.S resume_thread.S load_context.S save_context.S first.S second.S
 OBJECTS = $(CSRC:.c=.o) $(ASRC:.S=.o)
 	
 PROG = threads
@@ -38,7 +38,7 @@ CWARN = -Wall -Wstrict-prototypes
 CDEFS = -DF_CPU=$(F_CPU)
 CFLAGS = -mmcu=$(MCU) -I. $(CDEFS) $(CDEBUG) -O$(OPT) $(CWARN) 
 ASFLAGS = -mmcu=$(MCU) -x assembler
-LDFLAGS = -Wl#,--section-start,.data=0x80008D
+LDFLAGS = -Wl 
 
 CC = avr-gcc
 OBJCOPY = avr-objcopy
