@@ -5,20 +5,20 @@
 	
 load_pc:
 	
-	mov  r24,r26
-	mov  r25,r27
+	mov  r26,r24    ; move passed address to X
+	mov  r27,r25
 	
+	pop  r25        ; pop caller's return address from stack
 	pop  r24
-	pop  r25
 
+	ld   r20,X+     ; load low then high byte of stored PC
 	ld   r21,X+
-	ld   r20,X+
 	
+	push r20        ; push stored PC onto stack (lo then hi)
 	push r21
-	push r20
 	
+	push r24        ; put caller's return address back on stack
 	push r25
-	push r24
 	
 	ret
 

@@ -4,20 +4,20 @@
 	
 save_pc:
 
-	mov  r24,r26    ; move passed address to X
-	mov  r25,r27
+	mov  r26,r24    ; move passed address to X
+	mov  r27,r25
 	
-	pop  r24        ; pop return address
-	pop  r25
+	pop  r25        ; pop return address
+	pop  r24
 	
-	pop  r20        ; pop PC
-	pop  r21
+	pop  r21        ; pop PC
+	pop  r20
 	
-	st   X+,r21     ; store PC
-	st   X+,r20
+	st   X+,r20     ; store PC
+	st   X+,r21
 	
-	push r25        ; push return address
-	push r24
+	push r24        ; push return address
+	push r25
 	
 	ret
 	

@@ -88,7 +88,7 @@ ISR (TIMER1_OVF_vect) {
 void avr_threads_init(void) {
 	// malloc memory to hold program counters for all our
 	// threads, as well as the main thread
-	prog_counters = (int*) malloc(PC_SIZE * (MAX_THREADS + 1));
+	prog_counters = (int*) malloc(PC_SIZE * (MAX_THREADS));
 	
 	t_index = 0;
 	
@@ -126,6 +126,8 @@ void turn_on(void) {
 		PORTB |= 1 << RED_PIN_BIT;
 		PORTB &= 255 - (1 << GREEN_PIN_BIT);
 		PORTB &= 255 - (1 << RED_PIN_BIT);
+		PORTB &= 255 - (1 << GREEN_PIN_BIT);
+		PORTB &= 255 - (1 << RED_PIN_BIT);
 	}
 }
 
@@ -144,36 +146,22 @@ void turn_off(void) {
 void init(void) {
 	avr_threads_init();
 	
-	//avr_threads_create(&turn_on, NULL);
-	//avr_threads_create(&turn_off, NULL);
+	avr_threads_create(&turn_on, NULL);
+	avr_threads_create(&turn_off, NULL);
 	
 	// setup ports B & D (Arduino digital pins 0-13) as output pins
 	DDRD = DDRD | 252; // 11111100   the zeros are so we don't affect
 	DDRB = DDRB | 63;  // 00111111   special pins (TX, RX, and crystals)
 	
-	//accum = 0;
-	//timer_init = setup_timer_1((float) INTERRUPT_FREQ);
+	timer_init = setup_timer_1((float) INTERRUPT_FREQ);
 }
 
 int main(void) {
 	
 	init();
-
-	PORTB &= 255 - (1 << GREEN_PIN_BIT);
-	PORTB &= 255 - (1 << RED_PIN_BIT);
 	
-//	init();
-//	
-//	_delay_ms(1000);
-//	
-//	turn_off();
-//	
-//	for(;;) {
-//	}
-	
-	first();
-	
-	turn_off();
+	for(;;) {
+	}
 	
 	return 0;
 }

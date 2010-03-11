@@ -6,7 +6,7 @@ SHELL = /bin/bash
 .SUFFIXES: .c .o .hex .elf .S
 
 # Source files
-CSRC = threads.c
+CSRC = threads.c foo.c
 ASRC = save_pc.S load_pc.S suspend_thread.S resume_thread.S load_context.S save_context.S first.S second.S
 OBJECTS = $(CSRC:.c=.o) $(ASRC:.S=.o)
 	
@@ -70,7 +70,7 @@ $(PROG).lst: $(PROG).elf
 	$(OBJDUMP) -h -S $(PROG).elf > $(PROG).lst
 
 $(PROG).elf: $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) -L/usr/local/CrossPack-AVR/avr/lib -lc $(LDFLAGS)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
