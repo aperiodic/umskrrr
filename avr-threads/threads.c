@@ -10,8 +10,10 @@
 #define INTERRUPT_FREQ 5
 
 // LED output port bits 
-#define RED_PIN_BIT 0
-#define GREEN_PIN_BIT 2
+#define RED_1_PIN_BIT 0
+#define RED_2_PIN_BIT 1
+#define GREEN_1_PIN_BIT 2
+#define GREEN_2_PIN_BIT 3
 
 // PC SIZE in terms of bytes, so we know how much mem to malloc
 #define PC_SIZE 2
@@ -118,23 +120,23 @@ int avr_threads_create(void* func, void* args) {
 
 void turn_on(void) {
 	for (;;) {
-		PORTB &= 255 - (1 << GREEN_PIN_BIT);
-		PORTB &= 255 - (1 << RED_PIN_BIT);
-		PORTB &= 255 - (1 << GREEN_PIN_BIT);
-		PORTB &= 255 - (1 << RED_PIN_BIT);
-		PORTB |= 1 << GREEN_PIN_BIT;
-		PORTB |= 1 << RED_PIN_BIT;
-		PORTB &= 255 - (1 << GREEN_PIN_BIT);
-		PORTB &= 255 - (1 << RED_PIN_BIT);
-		PORTB &= 255 - (1 << GREEN_PIN_BIT);
-		PORTB &= 255 - (1 << RED_PIN_BIT);
+		PORTB &= 255 - (1 << GREEN_1_PIN_BIT);
+		PORTB &= 255 - (1 << RED_1_PIN_BIT);
+		PORTB &= 255 - (1 << GREEN_1_PIN_BIT);
+		PORTB &= 255 - (1 << RED_1_PIN_BIT);
+		PORTB |= 1 << GREEN_1_PIN_BIT;
+		PORTB |= 1 << RED_1_PIN_BIT;
+		PORTB &= 255 - (1 << GREEN_1_PIN_BIT);
+		PORTB &= 255 - (1 << RED_1_PIN_BIT);
+		PORTB &= 255 - (1 << GREEN_1_PIN_BIT);
+		PORTB &= 255 - (1 << RED_1_PIN_BIT);
 	}
 }
 
 void turn_off(void) {
 	for (;;) {
-		PORTB &= 255 - (1 << GREEN_PIN_BIT);
-		PORTB &= 255 - (1 << RED_PIN_BIT);
+		PORTB &= 255 - (1 << GREEN_1_PIN_BIT);
+		PORTB &= 255 - (1 << RED_1_PIN_BIT);
 	}
 }
 
