@@ -4,27 +4,25 @@
 	.type  save_context,@function
 	
 save_context:
-	mov  r24,r26    ; move the passed address to X
-	mov  r25,r27
+	mov  r26,r24    ; move context storage pointer to X registers
+	mov  r27,r25
 	
-	push r20        ; load SREG from stack
-	st   X+,r20     ; store SREG in mem
+	pop  r22        ; pop return address off of stack
+	pop  r23
 	
-	ldi  r18,32     ; 32 registers to load & save
+	ldi  r24,36     ; 36 bytes (r0:32, SREG, filler, PC) on the stack to save
 	
 .loop:
-	subi r18,1      ; decrement loop counter
-	brmi .end       ; if loop counter < 0, break out of loop
+	pop  r25        ; pop saved register off of the stack
+	st   X+,r25     ; save the register to memory
 	
-	pop  r20        ; load a saved register from stack
-	st   X+,r20     ; store saved register in memory
+	subi r24,1      ; decrement loop counter
+	cpi  r24,1      ; compare loop counter w/one
 	
-	jmp  .loop
+	brge .loop      ; jump back to loop if counter is >= 1 (i.e. !0)
 	
 .end:
-	push r21        ; load PC from stack
-	push r20
-	st   X+,r20     ; store PC in mem
-	st   X+,r21
+	push r23        ; push return address back on the stack
+	push r22
 	
 	ret

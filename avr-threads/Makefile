@@ -6,8 +6,8 @@ SHELL = /bin/bash
 .SUFFIXES: .c .o .hex .elf .S
 
 # Source files
-CSRC = threads.c foo.c
-ASRC = save_pc.S load_pc.S suspend_thread.S resume_thread.S load_context.S save_context.S first.S second.S
+CSRC = threads.c 
+ASRC = save_pc.S load_pc.S suspend_thread.S resume_thread.S load_context.S save_context.S 
 OBJECTS = $(CSRC:.c=.o) $(ASRC:.S=.o)
 	
 PROG = threads
@@ -34,9 +34,9 @@ MAKEFILE = Makefile
 OPT = s
 DEBUG = 
 CDEBUG = -g$(DEBUG)
-CWARN = -Wall -Wstrict-prototypes
+CWARN = -Wall -Wstrict-prototypes 
 CDEFS = -DF_CPU=$(F_CPU)
-CFLAGS = -mmcu=$(MCU) -I. $(CDEFS) $(CDEBUG) -O$(OPT) $(CWARN) 
+CFLAGS = -mmcu=$(MCU) -I. $(CDEFS) $(CDEBUG) -O$(OPT) $(CWARN)
 ASFLAGS = -mmcu=$(MCU) -x assembler
 LDFLAGS = -Wl 
 

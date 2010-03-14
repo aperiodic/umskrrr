@@ -4,31 +4,28 @@
 	.type   load_context,@function
 	
 load_context:
-	mov  r25,r27    ; move the context's address to X
-	mov  r26,r28
+	mov  r26,r24        ; move the context's address to X
+	mov  r27,r25
 	
-	ld   r20,X+     ; load the SREG value
-	sts  0x003f,r20 ; put SREG value in SREG
+	pop  r22            ; pop return address off of stack
+	pop  r23
 	
-	subi r27,-32    ; move X to memory location of PC
-	ld   r20,X+     ; load the PC
-	ld   r21,X+
+	ldi  r24,36         ; 36 bytes of saved context to push onto stack
 	
-	push r20        ; put the PC on the stack
-	push r21
-	
-	ldi  r18,32     ; set loop counter to 32
-	add  r27,r18    ; move X to right above memory destination for r31
-	inc  r27
+	subi r26,lo8(-36)   ; move the X pointer to *end* of the saved context
+	sbci r26,hi8(-36)
 	
 .loop:
-	subi r18,1      ; decrement loop counter
-	brmi .end       ; if loop counter < 0, end loop
+	ld   r25,-X         ; load byte from memory
+	push r25            ; push the byte onto the stack
 	
-	ld   r20,-X     ; load register from memory
-	push r20        ; push the register onto the stack
+	subi r24,1          ; decrement loop counter
+	cpi  r24,1          ; compare loop counter w/one
 	
-	jmp .loop
+	brge .loop          ; jump back to loop if counter is >= 1 (i.e. !0)
 	
-.end:
+.end:	
+	push r23            ; push return address back onto stack
+	push r22
+	
 	ret
